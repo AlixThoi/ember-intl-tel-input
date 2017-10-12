@@ -199,10 +199,18 @@ export default Ember.TextField.extend({
     get() {
       if (this.get('hasUtilsScript')) {
         let numberFormat = intlTelInputUtils.numberFormat[this.get('numberFormat')];
-        return this.$().intlTelInput('getNumber', numberFormat);
+        return this.$().intlTelInput('getNumber', numberFormat)
+        ;
       }
     },
-    set() { /* no-op */ }
+    //enables 2-way binding for number
+    set(key, value) { 
+    	//needs to wait for the page to render
+    	if (this.$()) {
+    		this.$().intlTelInput('setNumber', value);
+    	}
+    
+    }
   }),
 
   /**
